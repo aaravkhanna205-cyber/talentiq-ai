@@ -21,8 +21,8 @@ export const interviews = [
   {id:4,initials:"VD",name:"Vikram Das",role:"ML Engineer",time:"4:00 PM",type:"Technical",status:"Upcoming"},
 ];
 export const candidates = [
-  {initials:"AS",name:"Ananya Sharma",role:"Frontend Engineer",stage:"Interview",date:"Today",tone:"orange"},
-  {initials:"RK",name:"Rohan Kumar",role:"Data Analyst",stage:"Screening",date:"Yesterday",tone:"blue"},
-  {initials:"PM",name:"Priya Mehta",role:"Product Designer",stage:"Applied",date:"Nov 8",tone:"amber"},
-  {initials:"VD",name:"Vikram Das",role:"ML Engineer",stage:"Offer",date:"Nov 7",tone:"green"},
+  {initials:"AS",name:"Ananya Sharma",role:"Frontend Engineer",stage:"Interview",date:"Today"},
+  {initials:"RK",name:"Rohan Kumar",role:"Data Analyst",stage:"Screening",date:"Yesterday"},
+  {initials:"PM",name:"Priya Mehta",role:"Product Designer",stage:"Applied",date:"Nov 8"},
+  {initials:"VD",name:"Vikram Das",role:"ML Engineer",stage:"Offer",date:"Nov 7"},
 ];
