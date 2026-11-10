@@ -11,8 +11,8 @@ export const applications = [
   {day:"Sun",applied:103,interviewed:42},
 ];
 export const stages = [
-  {name:"Applied",value:642,fill:"#7367F0"}, {name:"Screening",value:302,fill:"#3B82F6"},
-  {name:"Interview",value:188,fill:"#16B8A6"}, {name:"Offer",value:82,fill:"#F59E0B"},
+  {name:"Applied",value:642,fill:"var(--chart-1)"}, {name:"Screening",value:302,fill:"var(--chart-2)"},
+  {name:"Interview",value:188,fill:"var(--chart-3)"}, {name:"Offer",value:82,fill:"var(--chart-4)"},
 ];
 export const interviews = [
   {id:1,initials:"AS",name:"Ananya Sharma",role:"Frontend Engineer",time:"10:30 AM",type:"Technical",status:"Upcoming"},
@@ -21,7 +21,7 @@ export const interviews = [
   {id:4,initials:"VD",name:"Vikram Das",role:"ML Engineer",time:"4:00 PM",type:"Technical",status:"Upcoming"},
 ];
 export const candidates = [
-  {initials:"AS",name:"Ananya Sharma",role:"Frontend Engineer",stage:"Interview",date:"Today",tone:"violet"},
+  {initials:"AS",name:"Ananya Sharma",role:"Frontend Engineer",stage:"Interview",date:"Today",tone:"orange"},
   {initials:"RK",name:"Rohan Kumar",role:"Data Analyst",stage:"Screening",date:"Yesterday",tone:"blue"},
   {initials:"PM",name:"Priya Mehta",role:"Product Designer",stage:"Applied",date:"Nov 8",tone:"amber"},
   {initials:"VD",name:"Vikram Das",role:"ML Engineer",stage:"Offer",date:"Nov 7",tone:"green"},

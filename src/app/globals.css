@@ -1,12 +1,40 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
-:root { --background:#f4f6fb; --foreground:#17223c; --card:#ffffff; --secondary:#eef1f8; --muted:#66748b; --border:#e3e8f2; --accent:#7367f0; }
-.dark { --background:#0d1423; --foreground:#eef2ff; --card:#172135; --secondary:#202d43; --muted:#9aa9c1; --border:#2a3a55; --accent:#8f7bff; }
-@theme inline { --color-background:var(--background); --color-foreground:var(--foreground); --color-card:var(--card); --color-secondary:var(--secondary); --color-muted:var(--muted); --color-border:var(--border); --color-accent:var(--accent); }
+
+/* Instant Mechanic theme: yellow, orange and white.
+   Change a colour here and the whole app follows. */
+:root {
+  --background:#FFFCF7; --foreground:#1C1917; --card:#FFFFFF; --secondary:#F7F0E6;
+  --muted:#6B645B; --border:#EDE6DA;
+  --primary:#FBBF24; --primary-foreground:#1C1917;   /* Signal Yellow button, dark text */
+  --accent:#F97316;                                  /* Mechanic Orange: icons, indicators, charts */
+  --accent-text:#C2410C;                             /* Deep Orange: links and text accents */
+  --accent-soft:#FFF4E5;                             /* Soft Tint: active nav, selected rows */
+  --success:#15803D; --info:#1D4ED8; --warning:#B45309; --danger:#B91C1C;
+  --chart-1:#F97316; --chart-2:#44403C; --chart-3:#FBBF24; --chart-4:#0D9488;
+}
+.dark {
+  --background:#15110E; --foreground:#FAFAF9; --card:#1E1915; --secondary:#292320;
+  --muted:#A8A29E; --border:#3A322C;
+  --primary:#FBBF24; --primary-foreground:#1C1917;
+  --accent:#F97316;
+  --accent-text:#FDBA74;
+  --accent-soft:#2E1F14;
+  --success:#6FD39A; --info:#93C5FD; --warning:#F2C866; --danger:#FF7B72;
+  --chart-1:#F97316; --chart-2:#D6D3D1; --chart-3:#FBBF24; --chart-4:#2DD4BF;
+}
+@theme inline {
+  --color-background:var(--background); --color-foreground:var(--foreground); --color-card:var(--card);
+  --color-secondary:var(--secondary); --color-muted:var(--muted); --color-border:var(--border);
+  --color-primary:var(--primary); --color-primary-foreground:var(--primary-foreground);
+  --color-accent:var(--accent); --color-accent-text:var(--accent-text); --color-accent-soft:var(--accent-soft);
+  --color-success:var(--success); --color-info:var(--info); --color-warning:var(--warning); --color-danger:var(--danger);
+  --color-chart-1:var(--chart-1); --color-chart-2:var(--chart-2); --color-chart-3:var(--chart-3); --color-chart-4:var(--chart-4);
+}
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body { background:var(--background); color:var(--foreground); font-family:Arial,Helvetica,sans-serif; }
 button { cursor:pointer; }
-::selection { background:#8f7bff60; }
-::-webkit-scrollbar {width:9px;height:9px}::-webkit-scrollbar-thumb{background:#75809b50;border-radius:20px}
+::selection { background:#FBBF2466; }
+::-webkit-scrollbar {width:9px;height:9px}::-webkit-scrollbar-thumb{background:#8a7f7250;border-radius:20px}
 .recharts-cartesian-axis-tick-value {fill:var(--muted)}
