@@ -17,8 +17,8 @@ Open http://localhost:3000
 | Phase | What | Status |
 |---|---|---|
 | 0 | Setup and audit | Done |
-| 1 | Theme, app shell, auth screens, dashboard | Done (tag `phase-1`) |
-| 2 | All recruiter, candidate and admin screens on demo data | Done (tag `phase-2`) |
+| 1 | Theme, app shell, auth screens, dashboard | Done |
+| 2 | All recruiter, candidate and admin screens on demo data | Done |
 | 3 | Backend, database and login | Next |
 | 4 | Resume intelligence | |
 | 5 | Interviews | |
