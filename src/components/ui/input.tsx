@@ -13,6 +13,13 @@ export function Input({ className, ...props }: React.ComponentProps<"input">) {
   );
 }
 
-export function Label({ className, ...props }: React.ComponentProps<"label">) {
-  return <label className={cn("mb-1.5 block text-sm font-medium", className)} {...props} />;
+export function Label({
+  className,
+  asLegend,
+  ...props
+}: React.ComponentProps<"label"> & { asLegend?: boolean }) {
+  const classes = cn("mb-1.5 block text-sm font-medium", className);
+  // Inside a <fieldset>, the caption must be a <legend> instead of a <label>.
+  if (asLegend) return <legend className={classes}>{props.children}</legend>;
+  return <label className={classes} {...props} />;
 }
