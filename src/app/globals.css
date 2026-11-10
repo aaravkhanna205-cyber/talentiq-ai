@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+:root { --background:#f4f6fb; --foreground:#17223c; --card:#ffffff; --secondary:#eef1f8; --muted:#66748b; --border:#e3e8f2; --accent:#7367f0; }
+.dark { --background:#0d1423; --foreground:#eef2ff; --card:#172135; --secondary:#202d43; --muted:#9aa9c1; --border:#2a3a55; --accent:#8f7bff; }
+@theme inline { --color-background:var(--background); --color-foreground:var(--foreground); --color-card:var(--card); --color-secondary:var(--secondary); --color-muted:var(--muted); --color-border:var(--border); --color-accent:var(--accent); }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--background); color:var(--foreground); font-family:Arial,Helvetica,sans-serif; }
+button { cursor:pointer; }
+::selection { background:#8f7bff60; }
+::-webkit-scrollbar {width:9px;height:9px}::-webkit-scrollbar-thumb{background:#75809b50;border-radius:20px}
+.recharts-cartesian-axis-tick-value {fill:var(--muted)}
