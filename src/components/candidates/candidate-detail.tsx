@@ -1,14 +1,14 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, CalendarDays, Check, FileText, Mail } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, FileText, Mail } from "lucide-react";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { StageProgress } from "@/components/ui/stage-progress";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { getCandidate, getJob, interviewsForCandidate, stages, type Evidence } from "@/lib/mock";
-import { cn } from "@/lib/utils";
 
 const evidenceLabel: Record<Evidence, string> = {
   supported: "Supported",
@@ -56,18 +56,7 @@ export function CandidateDetail({ id }: { id: string }) {
         </div>
 
         {/* Stage progress */}
-        <ol className="mt-6 grid grid-cols-5 gap-2">
-          {stages.map((s, i) => (
-            <li key={s} aria-current={i === stageIndex ? "step" : undefined}>
-              <div className={cn("h-1.5 rounded-full", i <= stageIndex ? "bg-accent" : "bg-secondary")} />
-              <p className={cn("mt-2 flex items-center gap-1 text-xs", i === stageIndex ? "font-semibold" : "text-muted")}>
-                {i < stageIndex && <Check size={12} className="shrink-0 text-success" />}
-                {/* On phones only the current stage name is shown, to save space */}
-                <span className={cn("truncate", i !== stageIndex && "hidden sm:inline")}>{s}</span>
-              </p>
-            </li>
-          ))}
-        </ol>
+        <StageProgress stageIndex={stageIndex} className="mt-6" />
         <p className="sr-only" role="status">Current stage: {stage}</p>
       </Card>
 

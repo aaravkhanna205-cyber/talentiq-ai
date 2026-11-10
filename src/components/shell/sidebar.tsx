@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { PanelLeftClose, PanelLeftOpen, Wrench, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { brand } from "@/lib/brand";
-import { mainNav, secondaryNav, type NavItem } from "@/lib/nav";
+import { adminNav, mainNav, secondaryNav, type NavItem } from "@/lib/nav";
 
 type Props = {
   collapsed: boolean;
@@ -79,6 +79,12 @@ export function Sidebar({ collapsed, onToggleCollapsed, mobileOpen, onClose }: P
           </p>
           <nav aria-label="Main menu" className="space-y-1">
             {mainNav.map(renderItem)}
+          </nav>
+          <p className={cn("mb-3 mt-6 border-t border-border px-3 pt-5 text-[10px] uppercase tracking-[.16em] text-muted", collapsed && "lg:hidden")}>
+            Super Admin
+          </p>
+          <nav aria-label="Super Admin menu" className={cn("space-y-1", collapsed && "lg:mt-4 lg:border-t lg:border-border lg:pt-4")}>
+            {adminNav.map(renderItem)}
           </nav>
           <div className="mt-6 space-y-1 border-t border-border pt-4">{secondaryNav.map(renderItem)}</div>
         </div>

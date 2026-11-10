@@ -7,37 +7,21 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Label, Select } from "@/components/ui/input";
 import { PageHeader } from "@/components/shell/page-header";
+import { inspectResume, RESUME_MAX_MB, sizeText, type PickedFile } from "@/lib/files";
 import { jobs } from "@/lib/mock";
 import { cn } from "@/lib/utils";
-
-const MAX_MB = 5;
-const allowed = [".pdf", ".docx"];
-
-type Picked = { name: string; size: number; problem: string };
-
-function inspect(file: File): Picked {
-  const lower = file.name.toLowerCase();
-  let problem = "";
-  if (!allowed.some((ext) => lower.endsWith(ext))) problem = "Only PDF and DOCX files are accepted.";
-  else if (file.size > MAX_MB * 1024 * 1024) problem = `Larger than ${MAX_MB} MB.`;
-  else if (file.size === 0) problem = "The file is empty.";
-  return { name: file.name, size: file.size, problem };
-}
-function sizeText(bytes: number) {
-  return bytes < 1024 * 1024 ? `${Math.max(1, Math.round(bytes / 1024))} KB` : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
-}
 
 export function UploadView() {
   const input = useRef<HTMLInputElement>(null);
   const openJobs = jobs.filter((j) => j.status === "Open");
   const [jobId, setJobId] = useState(openJobs[0]?.id ?? "");
-  const [files, setFiles] = useState<Picked[]>([]);
+  const [files, setFiles] = useState<PickedFile[]>([]);
   const [dragging, setDragging] = useState(false);
   const [done, setDone] = useState(false);
 
   function add(list: FileList | null) {
     if (!list) return;
-    const picked = Array.from(list).map(inspect);
+    const picked = Array.from(list).map(inspectResume);
     // Skip files already in the list.
     setFiles((old) => [...old, ...picked.filter((p) => !old.some((o) => o.name === p.name && o.size === p.size))]);
     setDone(false);
@@ -49,7 +33,7 @@ export function UploadView() {
       <Link href="/candidates" className="mb-4 inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground">
         <ArrowLeft size={15} /> All candidates
       </Link>
-      <PageHeader title="Upload resumes" text={`PDF or DOCX, up to ${MAX_MB} MB each. You can add several at once.`} />
+      <PageHeader title="Upload resumes" text={`PDF or DOCX, up to ${RESUME_MAX_MB} MB each. You can add several at once.`} />
 
       <Card className="max-w-2xl space-y-5 p-5 md:p-6">
         <div>

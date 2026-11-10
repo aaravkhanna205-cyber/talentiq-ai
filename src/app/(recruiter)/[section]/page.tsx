@@ -9,7 +9,7 @@ import { allNav } from "@/lib/nav";
 // Placeholder for menu pages that are not built yet.
 // As each real page is created in its own folder, it replaces this one automatically.
 const built = ["/dashboard", "/candidates", "/jobs", "/interviews", "/analytics"];
-const pending = allNav.filter((item) => !built.includes(item.href));
+const pending = allNav.filter((item) => !built.includes(item.href) && !item.href.startsWith("/admin"));
 
 export const dynamicParams = false;
 export function generateStaticParams() {

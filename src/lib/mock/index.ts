@@ -61,3 +61,5 @@ export const activity = [
   { id: 4, who: "Sana Sheikh", what: "received an offer", when: "Yesterday", kind: "offer" },
   { id: 5, who: "HR Admin", what: "posted the job Research Analyst", when: "5 Nov", kind: "job" },
 ];
+export * from "./admin";
+export * from "./me";

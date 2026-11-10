@@ -1,57 +1,50 @@
-# TalentIQ AI — Phase 1 recruiter dashboard
+# Instant Mechanic Hire
 
-Premium midnight navy / iris purple Next.js App Router dashboard with Tailwind CSS v4, reusable shadcn-style UI components, Recharts, lucide-react icons and next-themes.
+Hiring platform for Instant Mechanic: a Recruiter Workspace, a Candidate Portal and a Super Admin area.
+Built with Next.js 16, TypeScript and Tailwind CSS v4, in a yellow, orange and white theme.
 
-## Start on Windows (VS Code PowerShell)
-
-1. Install Node.js 22 LTS or newer compatible version (Node.js 20.9+ minimum per Next.js documentation).
-2. Extract the ZIP. Open the `TalentIQ-AI` folder in VS Code.
-3. Open **Terminal → New Terminal**, select **PowerShell**.
-4. Run:
+## Run it
 
 ```powershell
-node --version
-npm --version
 npm install
 npm run dev
 ```
 
-5. Open http://localhost:3000
+Open http://localhost:3000
 
-To validate your app:
+## Progress
 
-```powershell
-npm run lint
-npm run build
-```
+| Phase | What | Status |
+|---|---|---|
+| 0 | Setup and audit | Done |
+| 1 | Theme, app shell, auth screens, dashboard | Done (tag `phase-1`) |
+| 2 | All recruiter, candidate and admin screens on demo data | Done (tag `phase-2`) |
+| 3 | Backend, database and login | Next |
+| 4 | Resume intelligence | |
+| 5 | Interviews | |
+| 6 | AI agents | |
+| 7 | Organizations and admin | |
+| 8 | Test, ship, document | |
 
-## Features
+## Where things are
 
-- Fully responsive recruiter dashboard with off-canvas mobile navigation
-- Collapsible desktop navigation (the content maintains a 250px offset in Phase 1)
-- Persistent dark/light theme toggle using next-themes
-- 4 KPI cards, application activity AreaChart, hiring pipeline donut chart
-- Recent candidates with live search and interview schedule
-- Notifications panel and job-creation informational dialog
-- Accessible basic controls and empty search state
-- Fictional demo information only, no backend or hiring automation
+| Address | Area |
+|---|---|
+| `/dashboard`, `/jobs`, `/candidates`, `/interviews`, `/analytics` | Recruiter Workspace |
+| `/portal` | Candidate Portal |
+| `/admin/users`, `/admin/settings`, `/admin/data-import`, `/admin/audit-log` | Super Admin |
+| `/login`, `/register`, `/forgot-password`, `/reset-password`, `/onboarding` | Account screens |
 
-## File tree
+## Folders
 
 ```text
 src/
-  app/                 # App Router, layouts, global styles
-  components/
-    dashboard/         # dashboard, charts and sidebar
-    ui/                # locally authored shadcn-style UI primitives
-    providers.tsx      # persistent theme provider
-  lib/                 # mock data and utility functions
+  app/            pages, grouped as (auth), (recruiter), (admin) and portal
+  components/     ui/ base parts, shell/ sidebar and header, one folder per area
+  lib/
+    brand.ts      product name and tagline
+    nav.ts        sidebar menu
+    mock/         demo data: roles, jobs, candidates, interviews, admin
 ```
 
-## shadcn/ui note
-
-The archive includes locally authored compatible `components/ui` primitives and `components.json`, **not** CLI-generated shadcn components. To install official shadcn/ui components in your own environment, see https://ui.shadcn.com/docs/installation/next and run `npx shadcn@latest init` if needed, then `npx shadcn@latest add dialog input dropdown-menu` from the project root. Review CLI prompts before allowing overwrites. You don't need to run this command for the supplied dashboard.
-
-## Constraints
-
-Phase 1 is a frontend UI with mock data, not a production ATS. Candidate screening, authentication, storage, voice AI, actual job posting and APIs are outside this phase. No candidate data is collected or transmitted. Dependencies must be installed from npm on your own computer. Do not use the mock KPI figures as real data.
+Everything shown is fictional demo data. Nothing is saved, uploaded or sent until Phase 3.

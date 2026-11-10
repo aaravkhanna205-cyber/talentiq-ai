@@ -3,15 +3,17 @@ export function PageHeader({
   title,
   text,
   action,
+  eyebrow = "Recruiter workspace",
 }: {
   title: string;
+  eyebrow?: string;
   text?: string;
   action?: React.ReactNode;
 }) {
   return (
     <div className="mb-7 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
       <div>
-        <div className="mb-2 text-xs font-semibold uppercase tracking-widest text-accent-text">Recruiter workspace</div>
+        <div className="mb-2 text-xs font-semibold uppercase tracking-widest text-accent-text">{eyebrow}</div>
         <h1 className="text-2xl font-bold tracking-tight md:text-[30px]">{title}</h1>
         {text && <p className="mt-1 text-sm text-muted">{text}</p>}
       </div>

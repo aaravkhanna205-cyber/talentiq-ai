@@ -42,8 +42,8 @@ export function RegisterForm() {
           <DemoNotice title="Details look good">
             No account is saved yet; that is connected in Phase 3.
           </DemoNotice>
-          <Link href={role === "recruiter" ? "/onboarding" : "/dashboard"} className={primaryLink}>
-            {role === "recruiter" ? "Continue to workspace setup" : "Continue"}
+          <Link href={role === "recruiter" ? "/onboarding" : "/portal"} className={primaryLink}>
+            {role === "recruiter" ? "Continue to workspace setup" : "Open the candidate portal"}
           </Link>
         </div>
       </AuthCard>
