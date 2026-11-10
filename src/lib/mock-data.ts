@@ -26,3 +26,18 @@ export const candidates = [
   {initials:"PM",name:"Priya Mehta",role:"Product Designer",stage:"Applied",date:"Nov 8"},
   {initials:"VD",name:"Vikram Das",role:"ML Engineer",stage:"Offer",date:"Nov 7"},
 ];
+// How many candidates reached each stage, in order.
+export const funnel = [
+  {stage:"Applied",count:642},
+  {stage:"Screening",count:302},
+  {stage:"Interview",count:188},
+  {stage:"Offer",count:82},
+  {stage:"Joined",count:61},
+];
+export const activity = [
+  {id:1,who:"Ananya Sharma",what:"moved to Interview",when:"10 min ago",kind:"stage"},
+  {id:2,who:"Rohan Kumar",what:"uploaded a new resume",when:"1 hour ago",kind:"resume"},
+  {id:3,who:"HR Admin",what:"scheduled an interview with Priya Mehta",when:"2 hours ago",kind:"interview"},
+  {id:4,who:"Vikram Das",what:"received an offer",when:"Yesterday",kind:"offer"},
+  {id:5,who:"HR Admin",what:"posted the job ML Engineer",when:"Yesterday",kind:"job"},
+];
