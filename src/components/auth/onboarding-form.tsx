@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { brand } from "@/lib/brand";
+import { roles } from "@/lib/mock";
 import { checkRequired, isClean } from "@/lib/validate";
 import { AuthCard, DemoNotice, primaryLink } from "./auth-card";
 import { Field } from "./field";
 
-// Sample roles. Replace with the real Instant Mechanic roles when they are confirmed.
-const roleOptions = ["Mechanic", "Technician", "Service advisor", "Office staff"];
+const roleOptions = roles;
 
 export function OnboardingForm() {
   const [company, setCompany] = useState(brand.name);

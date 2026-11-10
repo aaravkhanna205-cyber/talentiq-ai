@@ -1,19 +1,18 @@
 "use client";
-import { useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight, ArrowUpRight, Bot, BriefcaseBusiness, CalendarDays, CalendarPlus, ChartNoAxesCombined,
   FileText, FileUp, History, Plus, Send, UserRoundCheck, Users, Video, type LucideIcon,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { buttonClass } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Dialog } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { Table, TD, TH, THead, TR } from "@/components/ui/table";
 import { PageHeader } from "@/components/shell/page-header";
 import { useDemoLoad } from "@/hooks/use-demo-load";
-import { activity, applications, candidates, funnel, interviews, stages, stats } from "@/lib/mock-data";
+import { activity, candidates, funnel, getCandidate, getJob, interviews, kpis, pipelineSlices, weeklyTrend } from "@/lib/mock";
+import { Avatar } from "@/components/ui/avatar";
 import { ApplicationChart, FunnelChart, PipelineChart, TrendBadge } from "./charts";
 import { Panel } from "./panel";
 
@@ -22,7 +21,7 @@ const activityIcons: Record<string, LucideIcon> = {
   stage: UserRoundCheck, resume: FileText, interview: CalendarDays, offer: Send, job: BriefcaseBusiness,
 };
 const quickActions = [
-  { label: "Upload resumes", href: "/resume-intelligence", icon: FileUp },
+  { label: "Upload resumes", href: "/candidates/upload", icon: FileUp },
   { label: "Schedule interview", href: "/interviews", icon: CalendarPlus },
   { label: "View analytics", href: "/analytics", icon: ChartNoAxesCombined },
 ];
@@ -32,9 +31,11 @@ const textLink =
   "inline-flex h-9 items-center gap-2 rounded-lg px-3 text-xs font-medium text-muted hover:bg-secondary hover:text-foreground";
 const twoColumns = "mb-5 grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1.8fr)_minmax(300px,1fr)]";
 
+const recent = candidates.slice(-5).reverse();
+const today = interviews.filter((i) => i.status === "Upcoming" && i.day.startsWith("Today"));
+
 export function DashboardView() {
   const loading = useDemoLoad();
-  const [jobDialogOpen, setJobDialogOpen] = useState(false);
 
   return (
     <>
@@ -42,9 +43,9 @@ export function DashboardView() {
         title="Good morning, Recruiter"
         text="Here's what's happening across your hiring pipeline today."
         action={
-          <Button onClick={() => setJobDialogOpen(true)}>
-            <Plus size={16} /> Create job opening
-          </Button>
+          <Link href="/jobs/new" className={buttonClass()}>
+            <Plus size={16} /> Post a job
+          </Link>
         }
       />
 
@@ -59,7 +60,7 @@ export function DashboardView() {
 
       {/* Four key numbers */}
       <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {stats.map((s, i) => {
+        {kpis.map((s, i) => {
           const Icon = kpiIcons[i];
           return (
             <Card key={s.label} className="p-5 transition-colors hover:border-accent/50">
@@ -96,25 +97,25 @@ export function DashboardView() {
           text="Applications and interviews over time"
           action={<TrendBadge />}
           loading={loading}
-          empty={applications.length === 0}
+          empty={weeklyTrend.length === 0}
           emptyIcon={ChartNoAxesCombined}
           emptyTitle="No applications yet"
           emptyText="The trend appears here once candidates start applying."
           skeletonRows={6}
         >
-          <ApplicationChart data={applications} />
+          <ApplicationChart data={weeklyTrend} />
         </Panel>
         <Panel
           title="Hiring pipeline"
           text="Where applications are right now"
           loading={loading}
-          empty={stages.length === 0}
+          empty={pipelineSlices.length === 0}
           emptyIcon={Users}
           emptyTitle="Pipeline is empty"
           emptyText="Stages fill up as applications come in."
           skeletonRows={6}
         >
-          <PipelineChart data={stages} />
+          <PipelineChart data={pipelineSlices} />
         </Panel>
       </div>
 
@@ -135,30 +136,32 @@ export function DashboardView() {
         <Panel
           title="Upcoming interviews"
           text="Your schedule today"
-          action={<span className="text-xs font-medium text-accent-text">{interviews.length} scheduled</span>}
+          action={<span className="text-xs font-medium text-accent-text">{today.length} scheduled</span>}
           loading={loading}
-          empty={interviews.length === 0}
+          empty={today.length === 0}
           emptyIcon={CalendarDays}
           emptyTitle="No interviews today"
           emptyText="Interviews you schedule appear here."
         >
           <div className="p-5 pt-2">
             <div className="space-y-5">
-              {interviews.map((p) => (
-                <div className="flex items-center gap-3" key={p.id}>
-                  <div className="flex size-10 items-center justify-center rounded-xl bg-secondary text-xs font-bold text-accent-text">
-                    {p.initials}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold">{p.name}</p>
-                    <p className="truncate text-xs text-muted">{p.role} · {p.type}</p>
-                  </div>
-                  <div className="whitespace-nowrap text-right">
-                    <p className="text-xs font-medium">{p.time}</p>
-                    <p className="text-[10px] text-muted">Today</p>
-                  </div>
-                </div>
-              ))}
+              {today.map((i) => {
+                const person = getCandidate(i.candidateId);
+                if (!person) return null;
+                return (
+                  <Link href={`/candidates/${person.id}`} className="flex items-center gap-3 rounded-lg hover:bg-secondary" key={i.id}>
+                    <Avatar name={person.name} className="size-10 rounded-xl bg-secondary" />
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-semibold">{person.name}</p>
+                      <p className="truncate text-xs text-muted">{getJob(person.jobId)?.title} · {i.type}</p>
+                    </div>
+                    <div className="whitespace-nowrap text-right">
+                      <p className="text-xs font-medium">{i.time}</p>
+                      <p className="text-[10px] text-muted">{i.mode}</p>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
             <Link href="/interviews" className={outlineLink + " mt-6 w-full"}>
               <CalendarDays size={15} /> View interview calendar
@@ -190,19 +193,17 @@ export function DashboardView() {
               </tr>
             </THead>
             <tbody>
-              {candidates.map((c) => (
-                <TR key={c.name}>
+              {recent.map((c) => (
+                <TR key={c.id}>
                   <TD>
-                    <div className="flex items-center gap-3">
-                      <div className="flex size-9 items-center justify-center rounded-full bg-accent-soft text-xs font-semibold text-accent-text">
-                        {c.initials}
-                      </div>
+                    <Link href={`/candidates/${c.id}`} className="flex items-center gap-3 hover:underline">
+                      <Avatar name={c.name} />
                       <span className="font-medium">{c.name}</span>
-                    </div>
+                    </Link>
                   </TD>
-                  <TD className="text-muted">{c.role}</TD>
+                  <TD className="text-muted">{getJob(c.jobId)?.title}</TD>
                   <TD><StatusBadge stage={c.stage} /></TD>
-                  <TD className="text-xs text-muted">{c.date}</TD>
+                  <TD className="whitespace-nowrap text-xs text-muted">{c.appliedOn}</TD>
                 </TR>
               ))}
             </tbody>
@@ -259,10 +260,6 @@ export function DashboardView() {
         </Link>
       </div>
 
-      <Dialog open={jobDialogOpen} onClose={() => setJobDialogOpen(false)} title="Create job opening">
-        <p className="mt-2 text-sm text-muted">Job creation is built in Phase 2. Nothing is saved yet.</p>
-        <Button className="mt-6" onClick={() => setJobDialogOpen(false)}>Got it</Button>
-      </Dialog>
     </>
   );
 }

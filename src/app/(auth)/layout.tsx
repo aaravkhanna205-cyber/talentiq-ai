@@ -25,7 +25,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </Link>
         <div>
           <h2 className="max-w-md text-3xl font-bold leading-tight tracking-tight xl:text-4xl">
-            Hiring for the people who keep cars running.
+            Join the team behind Instant Mechanic.
           </h2>
           <ul className="mt-8 space-y-4">
             {points.map(({ icon: Icon, text }) => (

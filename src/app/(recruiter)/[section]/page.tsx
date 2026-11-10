@@ -8,7 +8,7 @@ import { allNav } from "@/lib/nav";
 
 // Placeholder for menu pages that are not built yet.
 // As each real page is created in its own folder, it replaces this one automatically.
-const built = ["/dashboard", "/candidates"];
+const built = ["/dashboard", "/candidates", "/jobs", "/interviews", "/analytics"];
 const pending = allNav.filter((item) => !built.includes(item.href));
 
 export const dynamicParams = false;
@@ -25,7 +25,7 @@ export default async function SectionPage({ params }: { params: Promise<{ sectio
     <>
       <PageHeader title={item.label} />
       <Card>
-        <EmptyState icon={Hammer} title={`${item.label} is not built yet`} text="This screen is built in Phase 2. The menu and layout already work, so you can check navigation.">
+        <EmptyState icon={Hammer} title={`${item.label} is not built yet`} text="This screen is built in a later step. The menu and layout already work, so you can check navigation.">
           <Link href="/dashboard" className="inline-flex h-10 items-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/85">
             Back to dashboard
           </Link>

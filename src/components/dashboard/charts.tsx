@@ -30,7 +30,7 @@ export function ApplicationChart({ data }: { data: TrendPoint[] }) {
             </defs>
             <CartesianGrid stroke="var(--border)" strokeDasharray="4 6" vertical={false} />
             <XAxis dataKey="day" tickLine={false} axisLine={false} tick={{ fill: "var(--muted)", fontSize: 12 }} />
-            <YAxis tickLine={false} axisLine={false} tick={{ fill: "var(--muted)", fontSize: 12 }} />
+            <YAxis allowDecimals={false} tickLine={false} axisLine={false} tick={{ fill: "var(--muted)", fontSize: 12 }} />
             <Tooltip contentStyle={tooltipStyle} />
             <Area type="monotone" dataKey="applied" name="Applications" stroke="var(--chart-1)" fill="url(#appliedShade)" strokeWidth={3} />
             <Area type="monotone" dataKey="interviewed" name="Interviews" stroke="var(--chart-2)" fill="transparent" strokeWidth={2} />
@@ -104,5 +104,27 @@ export function FunnelChart({ data }: { data: FunnelStep[] }) {
         );
       })}
     </ol>
+  );
+}
+
+// Simple horizontal bars for comparing a few numbers, for example applicants per role.
+export function BarList({ data, unit }: { data: { label: string; count: number }[]; unit: string }) {
+  const top = Math.max(...data.map((d) => d.count), 1);
+  return (
+    <ul className="space-y-3.5 p-5 pt-2">
+      {data.map((d) => (
+        <li key={d.label}>
+          <div className="mb-1.5 flex items-baseline justify-between gap-3 text-sm">
+            <span className="font-medium">{d.label}</span>
+            <span className="text-xs text-muted">
+              <span className="font-semibold tabular-nums text-foreground">{d.count}</span> {unit}
+            </span>
+          </div>
+          <div className="h-2.5 rounded-full bg-secondary">
+            <div className="h-full rounded-full bg-chart-2" style={{ width: `${(d.count / top) * 100}%` }} />
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 }

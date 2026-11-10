@@ -1,3 +1,4 @@
+import { candidates, jobs } from "@/lib/mock";
 import {
   LayoutDashboard, Users, FileSearch, BriefcaseBusiness, Video,
   ChartNoAxesCombined, Bot, Settings, HelpCircle, type LucideIcon,
@@ -8,9 +9,9 @@ export type NavItem = { label: string; href: string; icon: LucideIcon; count?: s
 // The sidebar menu. Add a page here and it appears in the sidebar and breadcrumbs.
 export const mainNav: NavItem[] = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { label: "Candidates", href: "/candidates", icon: Users, count: "1284" },
+  { label: "Candidates", href: "/candidates", icon: Users, count: String(candidates.length) },
   { label: "Resume Intelligence", href: "/resume-intelligence", icon: FileSearch },
-  { label: "Job Openings", href: "/jobs", icon: BriefcaseBusiness, count: "24" },
+  { label: "Job Openings", href: "/jobs", icon: BriefcaseBusiness, count: String(jobs.filter((j) => j.status === "Open").length) },
   { label: "Interviews", href: "/interviews", icon: Video },
   { label: "Analytics", href: "/analytics", icon: ChartNoAxesCombined },
   { label: "AI Assistant", href: "/assistant", icon: Bot },
